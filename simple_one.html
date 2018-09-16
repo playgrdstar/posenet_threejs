@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>three.js base</title>
+        <style>
+        </style>
+    </head>
+    <body>
+        <script type="text/javascript" src="./three.js"></script>
+        <script type="text/javascript" src="./OrbitControls.js"></script>
+
+        <script>
+
+            var scene = new THREE.Scene();
+            var camera = new THREE.PerspectiveCamera( 100, window.innerWidth / window.innerHeight, 10, 1000 );
+            camera.position.z = 30;
+
+            var renderer = new THREE.WebGLRenderer( { antialias: true } );
+            renderer.setPixelRatio( window.devicePixelRatio );
+            renderer.setSize( window.innerWidth, window.innerHeight );
+            renderer.setClearColor( 0xCC7FE0, 1 );
+
+            document.body.appendChild( renderer.domElement );
+
+            var orbit = new THREE.OrbitControls( camera, renderer.domElement );
+            orbit.enableZoom = false;
+
+
+            var ambientLight  = new THREE.AmbientLight( '#FFE7FF' ),
+                hemiLight     = new THREE.HemisphereLight('#FFE7FF', '#FFE7FF', 0.5 ),
+                light         = new THREE.PointLight( '#FFE7FF', 1, 100 );
+
+            hemiLight.position.set( 0, 0, 10 );
+            light.position.set( 0, 0, 0 );
+
+            scene.add( hemiLight );
+            scene.add( light );
+
+            var group = new THREE.Group();
+
+            var geometry = new THREE.SphereGeometry( 3, 32, 32 );
+            var material = new THREE.MeshBasicMaterial( { color: 0xffffff, opacity:0.7, transparent:true } );
+            var sphere_one = new THREE.Mesh( geometry, material );
+            sphere_one.position.x = 0;
+            sphere_one.position.y = 0;
+            sphere_one.position.z = 0;
+            group.add( sphere_one );
+
+
+            var geometry = new THREE.SphereGeometry( 2, 32, 32 );
+            var material = new THREE.MeshPhongMaterial( { color: 0xE74C3C } );
+            var sphere_two = new THREE.Mesh( geometry, material );
+            sphere_two.position.x = 7*Math.cos(30);
+            sphere_two.position.y = 7*Math.sin(30);
+            sphere_two.position.z = 0;
+            group.add( sphere_two );
+
+
+            var geometry = new THREE.SphereGeometry( 2, 32, 32 );
+            var material = new THREE.MeshLambertMaterial( { color: 0xFFE7FF } );
+            var sphere_three = new THREE.Mesh( geometry, material );
+            sphere_three.position.x = 9*Math.cos(45);
+            sphere_three.position.y = 9*Math.sin(45);
+            sphere_three.position.z = 0;
+            group.add( sphere_three );
+
+            var geometry = new THREE.SphereGeometry( 2, 32, 32 );
+            var material = new THREE.MeshToonMaterial( { color: 0x3D98DB, opacity:0.8, transparent:true } );
+            var sphere_four = new THREE.Mesh( geometry, material );
+            sphere_four.position.x = 11*Math.cos(60);
+            sphere_four.position.y = 11*Math.sin(60);
+            sphere_four.position.z = 0;
+            group.add( sphere_four );
+
+            var geometry = new THREE.SphereGeometry( 2, 32, 32 );
+            var material = new THREE.MeshToonMaterial( { color: 0x2980B9, opacity:0.1, transparent:true, wireframe:true } );
+            var sphere_five = new THREE.Mesh( geometry, material );
+            sphere_five.position.x = 13*Math.cos(75);
+            sphere_five.position.y = 13*Math.sin(75);
+            sphere_five.position.z = 0;
+            group.add( sphere_five );
+
+            scene.add( group );
+
+
+            var prevFog = true;
+
+            var render = function () {
+
+                requestAnimationFrame( render );
+                orbit.update();
+                group.rotation.x += 0.03;
+                group.rotation.y += 0.02;
+                group.rotation.z += 0.01;
+               
+
+                renderer.render( scene, camera );
+
+            };
+
+            window.addEventListener( 'resize', function () {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize( window.innerWidth, window.innerHeight );
+
+            }, false );
+
+
+            render();
+
+        </script>
+    </body>
+</html>

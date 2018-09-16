@@ -1,3 +1,3 @@
-# Meet Blobby in p5.js 
+# Primer on three.js 
 
-p5.js code to draw blobs
+A simple primer on three.js
