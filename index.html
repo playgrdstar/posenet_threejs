@@ -1,114 +1,225 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>three.js base</title>
-        <style>
-        </style>
-    </head>
-    <body>
-        <script type="text/javascript" src="./three.js"></script>
-        <script type="text/javascript" src="./OrbitControls.js"></script>
 
-        <script>
+<head>
+  <meta charset="UTF-8">
+  <title>Machine Learning </title>
 
-            var scene = new THREE.Scene();
-            var camera = new THREE.PerspectiveCamera( 100, window.innerWidth / window.innerHeight, 10, 1000 );
-            camera.position.z = 30;
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.8/d3.min.js" type="text/JavaScript"></script>
+    <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
+    <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.min.js">
+    </script>
+    
+     <script src="https://unpkg.com/mathjs@5.2.0/dist/math.min.js" type="text/JavaScript"></script>  
 
-            var renderer = new THREE.WebGLRenderer( { antialias: true } );
-            renderer.setPixelRatio( window.devicePixelRatio );
-            renderer.setSize( window.innerWidth, window.innerHeight );
-            renderer.setClearColor( 0xCC7FE0, 1 );
-
-            document.body.appendChild( renderer.domElement );
-
-            var orbit = new THREE.OrbitControls( camera, renderer.domElement );
-            orbit.enableZoom = false;
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.js" type="text/JavaScript"></script>  
 
 
-            var ambientLight  = new THREE.AmbientLight( '#FFE7FF' ),
-                hemiLight     = new THREE.HemisphereLight('#FFE7FF', '#FFE7FF', 0.5 ),
-                light         = new THREE.PointLight( '#FFE7FF', 1, 100 );
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-            hemiLight.position.set( 0, 0, 10 );
-            light.position.set( 0, 0, 0 );
-
-            scene.add( hemiLight );
-            scene.add( light );
-
-            var group = new THREE.Group();
-
-            var geometry = new THREE.SphereGeometry( 3, 32, 32 );
-            var material = new THREE.MeshBasicMaterial( { color: 0xffffff, opacity:0.7, transparent:true } );
-            var sphere_one = new THREE.Mesh( geometry, material );
-            sphere_one.position.x = 0;
-            sphere_one.position.y = 0;
-            sphere_one.position.z = 0;
-            group.add( sphere_one );
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 
 
-            var geometry = new THREE.SphereGeometry( 2, 32, 32 );
-            var material = new THREE.MeshPhongMaterial( { color: 0xE74C3C } );
-            var sphere_two = new THREE.Mesh( geometry, material );
-            sphere_two.position.x = 7*Math.cos(30);
-            sphere_two.position.y = 7*Math.sin(30);
-            sphere_two.position.z = 0;
-            group.add( sphere_two );
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- End Bootstrap CSS and related Javascript libraries-->
+
+    <link rel="stylesheet" href="https://use.typekit.net/tet7hit.css">
+
+    <!-- Mathjax for formulas -->
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
 
 
-            var geometry = new THREE.SphereGeometry( 2, 32, 32 );
-            var material = new THREE.MeshLambertMaterial( { color: 0xFFE7FF } );
-            var sphere_three = new THREE.Mesh( geometry, material );
-            sphere_three.position.x = 9*Math.cos(45);
-            sphere_three.position.y = 9*Math.sin(45);
-            sphere_three.position.z = 0;
-            group.add( sphere_three );
+<style>
+/* Style of axis */
+body {
+  background-color: #F1DEDE;
+}
 
-            var geometry = new THREE.SphereGeometry( 2, 32, 32 );
-            var material = new THREE.MeshToonMaterial( { color: 0x3D98DB, opacity:0.8, transparent:true } );
-            var sphere_four = new THREE.Mesh( geometry, material );
-            sphere_four.position.x = 11*Math.cos(60);
-            sphere_four.position.y = 11*Math.sin(60);
-            sphere_four.position.z = 0;
-            group.add( sphere_four );
+/*To center (horizontally and vertically) the contents of the div*/
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-            var geometry = new THREE.SphereGeometry( 2, 32, 32 );
-            var material = new THREE.MeshToonMaterial( { color: 0x2980B9, opacity:0.1, transparent:true, wireframe:true } );
-            var sphere_five = new THREE.Mesh( geometry, material );
-            sphere_five.position.x = 13*Math.cos(75);
-            sphere_five.position.y = 13*Math.sin(75);
-            sphere_five.position.z = 0;
-            group.add( sphere_five );
+h2, h5, h6 {
+  color: #5D576B;
+  font-family: interstate, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
 
-            scene.add( group );
+p {
+  color: #5D576B;
+  font-size: 12px;
+  font-family: interstate, sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
 
+.btn {
+  color: #5D576B;
+  font-family: interstate, sans-serif;
+  font-weight: 250;
+  font-style: normal;
+}
 
-            var prevFog = true;
-
-            var render = function () {
-
-                requestAnimationFrame( render );
-                orbit.update();
-                group.rotation.x += 0.03;
-                group.rotation.y += 0.02;
-                group.rotation.z += 0.01;
-               
-
-                renderer.render( scene, camera );
-
-            };
-
-            window.addEventListener( 'resize', function () {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize( window.innerWidth, window.innerHeight );
-
-            }, false );
+.input-group-text, .form-control {
+  color: #5D576B;
+  font-size: 12px;
+  font-family: interstate, sans-serif;
+  font-weight: 250;
+  font-style: normal;
+  background-color: #F1DEDE;
+}
 
 
-            render();
+.axis line {
+  stroke: #A7C6DA;
+}
 
-        </script>
-    </body>
+.axis path {
+  stroke: none;
+}
+
+.axis text {
+  fill: #A7C6DA;
+}
+</style>
+</head>
+
+<body>
+<div class='row flex'>
+  <div class="col-xs-12">
+    <div class='row flex'>
+    <p>
+      <h2>Look, no hands</h2>
+    </p>
+  </div>
+  <div class='row flex'>
+    <p>
+      <h6>Logistic Regression Classification in plain ole Javascript</h6>
+    </p>
+  </div>
+  </div>
+</div>
+
+<div class="row" style="height: 15px;">
+</div>
+
+
+<div class='row flex'>
+<div class="btn-group" role="group" aria-label="Basic example">
+  <button type="button" class="btn btn-outline-secondary btn-sm" id='generate'>Generate Data</button>
+  <button type="button" class="btn btn-outline-secondary btn-sm" id='train'>Train</button>
+  <button type="button" class="btn btn-outline-secondary btn-sm" id='predict'>Predict</button>
+</div>
+</div>
+
+<div class="row" style="height: 15px;">
+</div>
+
+
+<div class="row">
+  <div class="col">
+  <div class="progress" style="height: 5px;">
+    <div class="progress-bar  progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+  </div>
+  </div>
+</div>
+
+<div class="row" style="height: 15px;">
+</div>
+
+<div class="row flex">
+
+  <div class="col flex">
+  <div class="input-group input-group-sm mb-3 w-50">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-sm">Total Points</span>
+  </div>
+  <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value=100 id='total'>
+  </div>
+  </div>
+
+  <div class="col flex">
+  <div class="input-group input-group-sm mb-3 w-50">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-sm">Segment Class</span>
+  </div>
+  <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value=50 id='boundary'>
+  </div>
+  </div>
+
+</div>
+
+
+
+<div class="row flex" style="height: 20px;">
+</div>
+<div class="row flex" style="height: 10px;">
+  <p>After training, shift the red point by changing the values from 0 to 500. Then press 'Predict' to check the class.</p>
+</div>
+
+<div class="row flex">
+
+  <div class="col flex">
+  <div class="input-group input-group-sm mb-3 w-50">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-sm">Point:X</span>
+  </div>
+  <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id='pointX' value=450>
+  </div>
+  </div>
+
+  <div class="col flex">
+  <div class="input-group input-group-sm mb-3 w-50">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-sm">Point:Y</span>
+  </div>
+  <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id='pointY' value=450>
+  </div>
+  </div>
+  
+</div>
+
+
+<div class="row flex">
+
+  <div class="col flex">
+    <h6>Training Accuracy// </h6>
+    <h6 id='accuracy'>~</h6>
+  </div>
+
+  <div class="col flex">
+    <h6>Logistic Equation//</h6>
+    <h6 id='accuracy'>$$1\over exp^{-(Ax^1+Bx^2+C)}$$</h6>
+  </div>
+  
+</div>
+
+
+<div class="row" style="height: 10px;">
+</div>
+
+
+
+<div class="row" style="height: 10px;">
+</div>
+
+<div class='row flex'>
+  <div class="col-xs-6" id='p5canvas1'>  
+  </div>
+  <div class="col-xs-6" id='p5canvas2'>
+  </div>
+</div>
+  <script src="./scripts/logregression.js"></script>
+</body>
+
 </html>
