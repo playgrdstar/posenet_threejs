@@ -228,7 +228,13 @@ function render(video, net) {
 
 async function main() {
   // Load posenet
-  const net = await posenet.load(0.75);
+  // const net = await posenet.load(0.75);
+  const net = await posenet.load({
+    architecture: 'MobileNetV1',
+    outputStride: 16,
+    inputResolution: 513,
+    multiplier: 0.75
+  });
 
   document.getElementById('main').style.display = 'block';
   let video;
