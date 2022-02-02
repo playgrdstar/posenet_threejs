@@ -155,7 +155,13 @@ function render(video, net) {
   async function detect() {
 
     // Load posenet
-    net = await posenet.load(0.5);
+    // net = await posenet.load(0.5);
+    const net = await posenet.load({
+      architecture: 'MobileNetV1',
+      outputStride: 16,
+      inputResolution: 513,
+      multiplier: 0.75
+    });
 
     // Scale the image. The smaller the faster
     const imageScaleFactor = 0.75;
